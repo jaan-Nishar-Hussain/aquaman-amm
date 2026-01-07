@@ -1,0 +1,23 @@
+{
+  "name": "vibe-maxing",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Vibe Maxing Monorepo",
+  "scripts": {
+    "preinstall": "node scripts/preinstall.js",
+    "dev": "pnpm --filter frontend dev",
+    "build": "pnpm --filter frontend build",
+    "build:dev": "pnpm --filter frontend build:dev",
+    "lint": "pnpm --filter frontend lint",
+    "preview": "pnpm --filter frontend preview",
+    "clean": "pnpm -r exec rm -rf node_modules dist .turbo && rm -rf node_modules"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "packageManager": "pnpm@8.15.0"
+}

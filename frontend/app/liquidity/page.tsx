@@ -8,7 +8,7 @@ const strategies = [
         id: 1,
         type: "concentrated",
         pair: "ETH/USDC",
-        chain: "Ethereum",
+        chain: "Sepolia ETH",
         rangeLow: 2400,
         rangeHigh: 3200,
         liquidity: 125000,
@@ -20,7 +20,7 @@ const strategies = [
         id: 2,
         type: "stable",
         pair: "USDC/USDT",
-        chain: "Arbitrum",
+        chain: "Polygon",
         rangeLow: 0.999,
         rangeHigh: 1.001,
         liquidity: 500000,
@@ -31,10 +31,10 @@ const strategies = [
     {
         id: 3,
         type: "concentrated",
-        pair: "AVAX/USDC",
-        chain: "Avalanche",
-        rangeLow: 28,
-        rangeHigh: 42,
+        pair: "ETH/USDC",
+        chain: "Base Sepolia",
+        rangeLow: 2800,
+        rangeHigh: 3500,
         liquidity: 75000,
         earnings: 892.45,
         apy: "31.2%",
@@ -124,8 +124,8 @@ export default function LiquidityPage() {
                                         <td className="p-4">
                                             <span
                                                 className={`px-2 py-1 rounded text-xs ${strategy.type === "concentrated"
-                                                        ? "bg-purple-500/20 text-purple-400"
-                                                        : "bg-blue-500/20 text-blue-400"
+                                                    ? "bg-purple-500/20 text-purple-400"
+                                                    : "bg-blue-500/20 text-blue-400"
                                                     }`}
                                             >
                                                 {strategy.type}
@@ -186,7 +186,7 @@ export default function LiquidityPage() {
                         <div className="text-cyan-400 text-3xl mb-2">🌐</div>
                         <h3 className="text-white font-bold mb-2">Cross-Chain</h3>
                         <p className="text-gray-400 text-sm">
-                            Provide liquidity that works across 7 chains with atomic settlement
+                            Provide liquidity that works across 3 chains with atomic settlement
                             guarantees.
                         </p>
                     </div>
@@ -212,8 +212,8 @@ export default function LiquidityPage() {
                             <button
                                 onClick={() => setSelectedType("concentrated")}
                                 className={`p-4 rounded-lg border-2 transition-colors ${selectedType === "concentrated"
-                                        ? "border-cyan-500 bg-cyan-500/10"
-                                        : "border-zinc-700 hover:border-zinc-600"
+                                    ? "border-cyan-500 bg-cyan-500/10"
+                                    : "border-zinc-700 hover:border-zinc-600"
                                     }`}
                             >
                                 <div className="text-lg mb-1">📊</div>
@@ -223,8 +223,8 @@ export default function LiquidityPage() {
                             <button
                                 onClick={() => setSelectedType("stable")}
                                 className={`p-4 rounded-lg border-2 transition-colors ${selectedType === "stable"
-                                        ? "border-cyan-500 bg-cyan-500/10"
-                                        : "border-zinc-700 hover:border-zinc-600"
+                                    ? "border-cyan-500 bg-cyan-500/10"
+                                    : "border-zinc-700 hover:border-zinc-600"
                                     }`}
                             >
                                 <div className="text-lg mb-1">💎</div>
@@ -246,9 +246,9 @@ export default function LiquidityPage() {
                             <div>
                                 <label className="text-gray-400 text-sm">Chain</label>
                                 <select className="w-full bg-zinc-800 text-white p-3 rounded-lg mt-1">
-                                    <option>Ethereum</option>
-                                    <option>Arbitrum</option>
-                                    <option>Avalanche</option>
+                                    <option>Polygon</option>
+                                    <option>Sepolia ETH</option>
+                                    <option>Base Sepolia</option>
                                 </select>
                             </div>
                             {selectedType === "concentrated" && (

@@ -13,11 +13,9 @@ const tokens = [
 ];
 
 const chains = [
-    { id: "ethereum", name: "Ethereum", color: "#627EEA" },
-    { id: "arbitrum", name: "Arbitrum", color: "#28A0F0" },
-    { id: "avalanche", name: "Avalanche", color: "#E84142" },
-    { id: "optimism", name: "Optimism", color: "#FF0420" },
-    { id: "base", name: "Base", color: "#0052FF" },
+    { id: "polygon", name: "Polygon", color: "#8247E5" },
+    { id: "sepolia", name: "Sepolia ETH", color: "#627EEA" },
+    { id: "base-sepolia", name: "Base Sepolia", color: "#0052FF" },
 ];
 
 export default function SwapPage() {
@@ -199,7 +197,7 @@ export default function SwapPage() {
                         <div className="text-gray-400 text-xs">Avg Settlement</div>
                     </div>
                     <div className="bg-zinc-900 rounded-lg p-4">
-                        <div className="text-cyan-400 text-lg font-bold">7</div>
+                        <div className="text-cyan-400 text-lg font-bold">3</div>
                         <div className="text-gray-400 text-xs">Chains</div>
                     </div>
                 </div>

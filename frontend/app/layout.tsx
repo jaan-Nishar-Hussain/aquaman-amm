@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Vercel BFCM 2025",
-  description: "A recreation of Vercel's Black Friday - Cyber Monday 2025 dashboard",
+  title: "AQUAMAN | Non-Custodial Liquidity Protocol",
+  description: "Distributed, non-custodial liquidity execution protocol that enforces strict accounting invariants while enabling cross-chain, intent-based swaps without pooled liquidity.",
 };
 
 export default function RootLayout({
@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-white`}
       >
         {children}
       </body>

@@ -11,12 +11,12 @@ function useAnimatedNumber(baseValue: number, incrementRatePerSecond: number) {
   useEffect(() => {
     const updatesPerSecond = 20;
     const baseIncrement = incrementRatePerSecond / updatesPerSecond;
-    
+
     const interval = setInterval(() => {
       const variation = 0.7 + Math.random() * 0.6;
       const increment = Math.max(1, Math.floor(baseIncrement * variation));
       setValue((v) => v + increment);
-      
+
       const rateVariation = 0.85 + Math.random() * 0.3;
       setDisplayRate(Math.floor(incrementRatePerSecond * rateVariation));
     }, 1000 / updatesPerSecond);
@@ -179,11 +179,11 @@ function StatCard({
 }) {
   const [showInfo, setShowInfo] = useState(false);
   const { value } = useAnimatedNumber(baseValue || 0, incrementRate || 0);
-  
+
   const statsContent = (
-    <div className="bg-gray-alpha-100 p-4 md:p-6 w-full min-h-[120px] h-full">
+    <div className="bg-zinc-900 p-4 md:p-6 w-full min-h-[120px] h-full">
       <div className="space-y-2">
-        <h2 className="my-0 font-mono font-medium text-sm tracking-tight uppercase text-gray-1000 pr-6">
+        <h2 className="my-0 font-mono font-medium text-sm tracking-tight uppercase text-gray-300 pr-6">
           {title}
         </h2>
         {baseValue !== undefined && (
@@ -197,12 +197,12 @@ function StatCard({
   );
 
   const infoContentView = (
-    <div className="bg-gray-alpha-100 p-4 md:p-6 w-full h-full overflow-y-auto flex flex-col gap-y-2">
+    <div className="bg-zinc-900 p-4 md:p-6 w-full h-full overflow-y-auto flex flex-col gap-y-2">
       {href ? (
         <a
           href={href}
           tabIndex={showInfo ? 0 : -1}
-          className="my-0 font-mono font-medium text-sm tracking-tight uppercase text-gray-1000 hover:underline underline-offset-2 inline-flex gap-x-0.5 items-center w-fit shrink-0"
+          className="my-0 font-mono font-medium text-sm tracking-tight uppercase text-gray-300 hover:underline underline-offset-2 inline-flex gap-x-0.5 items-center w-fit shrink-0"
         >
           {title}
           <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
@@ -210,16 +210,16 @@ function StatCard({
           </svg>
         </a>
       ) : (
-        <span className="my-0 font-mono font-medium text-sm tracking-tight uppercase text-gray-1000 shrink-0">
+        <span className="my-0 font-mono font-medium text-sm tracking-tight uppercase text-gray-300 shrink-0">
           {title}
         </span>
       )}
-      <span className="tracking-tight text-sm text-gray-900 leading-relaxed line-clamp-6">
+      <span className="tracking-tight text-sm text-gray-400 leading-relaxed line-clamp-6">
         {infoContent}
       </span>
     </div>
   );
-  
+
   return (
     <div className={`relative group rounded-md overflow-hidden ${className || ""}`}>
       <PixelGridTransition
@@ -248,18 +248,18 @@ function StatCard({
 
 function MetricRow({ label, baseValue, incrementRate, showRate = false }: { label: string; baseValue: number; incrementRate: number; showRate?: boolean }) {
   const { value, rate } = useAnimatedNumber(baseValue, incrementRate);
-  
+
   return (
     <li className="flex flex-wrap items-center justify-between gap-x-3">
-      <h3 className="m-0 font-mono font-normal text-sm text-gray-900 uppercase">
+      <h3 className="m-0 font-mono font-normal text-sm text-gray-400 uppercase">
         {label}
       </h3>
       <div className="flex items-center gap-3 md:gap-4 text-right">
-        <div className="text-gray-1000 text-sm font-mono tabular-nums">
+        <div className="text-white text-sm font-mono tabular-nums">
           {formatNumber(value)}
         </div>
         {showRate && (
-          <div className="w-16 text-gray-900 text-right text-sm font-mono tabular-nums">
+          <div className="w-16 text-gray-400 text-right text-sm font-mono tabular-nums">
             <span>{formatNumber(rate)}</span>
             <span aria-label="per second">/s</span>
           </div>
@@ -271,16 +271,16 @@ function MetricRow({ label, baseValue, incrementRate, showRate = false }: { labe
 
 export function TotalRequests() {
   const { value, rate } = useAnimatedNumber(stats.totalRequests, 450000);
-  
+
   return (
     <div className="space-y-2">
-      <h2 className="my-0 font-mono font-medium text-sm tracking-tight uppercase text-gray-900">
+      <h2 className="my-0 font-mono font-medium text-sm tracking-tight uppercase text-gray-400">
         Total requests
       </h2>
       <div className="text-4xl md:text-5xl tracking-normal font-mono tabular-nums">
         {formatNumber(value)}
       </div>
-      <div className="text-sm text-gray-900 font-mono tabular-nums">
+      <div className="text-sm text-gray-400 font-mono tabular-nums">
         {formatNumber(rate)}/s
       </div>
     </div>
@@ -289,7 +289,7 @@ export function TotalRequests() {
 
 function CountryRow({ country, incrementRate }: { country: typeof topCountries[0]; incrementRate: number }) {
   const { value, rate } = useAnimatedNumber(country.requests, incrementRate);
-  
+
   return (
     <li className="flex items-center w-full md:w-fit justify-between md:justify-start">
       <span aria-hidden="true" className="inline-block translate-y-[-2px] translate-x-[2px]">
@@ -306,7 +306,7 @@ function CountryRow({ country, incrementRate }: { country: typeof topCountries[0
       <div className="w-[16ch] text-right">
         <span className="inline-flex tabular-nums">{formatNumber(value)}</span>
       </div>
-      <div className="w-[10ch] ml-auto text-right text-gray-900">
+      <div className="w-[10ch] ml-auto text-right text-gray-400">
         <span>{formatNumber(rate)}</span>
         <span className="lowercase" aria-label="per second">/s</span>
       </div>
@@ -316,18 +316,18 @@ function CountryRow({ country, incrementRate }: { country: typeof topCountries[0
 
 export function TopCountries() {
   const incrementRates = [160000, 24000, 19000, 17000, 15000, 15000, 14000];
-  
+
   return (
     <div className="space-y-2">
-      <h2 className="my-0 font-mono font-medium text-sm tracking-tight uppercase text-gray-900">
+      <h2 className="my-0 font-mono font-medium text-sm tracking-tight uppercase text-gray-400">
         Top countries by requests
       </h2>
       <ul className="list-none pl-0 space-y-1">
         {topCountries.map((country, index) => (
-          <CountryRow 
-            key={country.code} 
-            country={country} 
-            incrementRate={incrementRates[index] || 10000} 
+          <CountryRow
+            key={country.code}
+            country={country}
+            incrementRate={incrementRates[index] || 10000}
           />
         ))}
       </ul>
@@ -343,7 +343,7 @@ export function RegionCount() {
       </span>
       <div className="text-left">
         <span className="inline-block my-0 font-medium text-[16px]">&nbsp;19</span>
-        <span className="font-medium text-[16px] text-gray-900 tracking-tight">&nbsp;Vercel Regions</span>
+        <span className="font-medium text-[16px] text-gray-400 tracking-tight">&nbsp;Vercel Regions</span>
       </div>
     </div>
   );
@@ -353,15 +353,15 @@ export function StatsGrid() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1.5">
       <div className="flex flex-col gap-1.5">
-        <StatCard 
-          title="Total deployments" 
-          baseValue={stats.totalDeployments} 
+        <StatCard
+          title="Total deployments"
+          baseValue={stats.totalDeployments}
           incrementRate={24}
           infoContent="The number of deployments created across all Vercel projects during Black Friday weekend."
           href="https://vercel.com/docs/deployments"
           className="flex-1"
         />
-        <StatCard 
+        <StatCard
           title="AI Gateway"
           infoContent="A unified interface for AI model requests with caching and rate limiting."
           href="https://vercel.com/docs/ai"
@@ -374,9 +374,9 @@ export function StatsGrid() {
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <StatCard 
-          title="Firewall actions" 
-          baseValue={stats.firewallActions.total} 
+        <StatCard
+          title="Firewall actions"
+          baseValue={stats.firewallActions.total}
           incrementRate={29000}
           infoContent="Vercel Firewall protects your applications from malicious traffic with automatic DDoS protection, bot management, and custom WAF rules."
           href="https://vercel.com/docs/security"
@@ -406,7 +406,7 @@ export function StatsGrid() {
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <StatCard 
+        <StatCard
           title="Bot Management"
           infoContent="Bot Management identifies and blocks malicious automated traffic while allowing legitimate bots through."
           href="https://vercel.com/docs/security/bot-protection"
@@ -421,15 +421,15 @@ export function StatsGrid() {
             />
           </ul>
         </StatCard>
-        <StatCard 
-          title="Cache" 
-          baseValue={stats.cacheHits} 
+        <StatCard
+          title="Cache"
+          baseValue={stats.cacheHits}
           incrementRate={305000}
           infoContent="Cache hits represent requests served directly from Vercel's Edge Network without hitting the origin server."
           href="https://vercel.com/docs/edge-network/caching"
           className="flex-1"
         >
-          <p className="text-gray-900 text-sm font-mono mt-1">Cache hits served</p>
+          <p className="text-gray-400 text-sm font-mono mt-1">Cache hits served</p>
         </StatCard>
       </div>
     </div>

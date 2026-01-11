@@ -67,7 +67,7 @@ export default function SwapPage() {
                     <div className="space-y-2">
                         <div className="flex justify-between text-sm text-gray-400">
                             <span>From</span>
-                            <span>Balance: 10.5 {tokenIn.symbol}</span>
+                            <span>Balance: 0 {tokenIn.symbol}</span>
                         </div>
                         <div className="bg-zinc-800 rounded-lg p-4">
                             <div className="flex justify-between items-center">
@@ -119,7 +119,7 @@ export default function SwapPage() {
                     <div className="space-y-2">
                         <div className="flex justify-between text-sm text-gray-400">
                             <span>To</span>
-                            <span>Balance: 2,847.00 {tokenOut.symbol}</span>
+                            <span>Balance: 0 {tokenOut.symbol}</span>
                         </div>
                         <div className="bg-zinc-800 rounded-lg p-4">
                             <div className="flex justify-between items-center">

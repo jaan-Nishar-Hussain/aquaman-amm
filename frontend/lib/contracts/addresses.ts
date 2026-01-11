@@ -2,53 +2,23 @@
 // Update these after deployment
 
 export const CONTRACT_ADDRESSES = {
-    // Ethereum Mainnet
-    1: {
-        intentManager: "0x0000000000000000000000000000000000000000" as `0x${string}`,
-        stableswapAMM: "0x0000000000000000000000000000000000000000" as `0x${string}`,
-        concentratedLiquidity: "0x0000000000000000000000000000000000000000" as `0x${string}`,
-        escrowVault: "0x0000000000000000000000000000000000000000" as `0x${string}`,
-        crossChainSettlement: "0x0000000000000000000000000000000000000000" as `0x${string}`,
-    },
-    // Arbitrum
-    42161: {
-        intentManager: "0x0000000000000000000000000000000000000000" as `0x${string}`,
-        stableswapAMM: "0x0000000000000000000000000000000000000000" as `0x${string}`,
-        concentratedLiquidity: "0x0000000000000000000000000000000000000000" as `0x${string}`,
-        escrowVault: "0x0000000000000000000000000000000000000000" as `0x${string}`,
-        crossChainSettlement: "0x0000000000000000000000000000000000000000" as `0x${string}`,
-    },
-    // Avalanche C-Chain
-    43114: {
-        intentManager: "0x0000000000000000000000000000000000000000" as `0x${string}`,
-        stableswapAMM: "0x0000000000000000000000000000000000000000" as `0x${string}`,
-        concentratedLiquidity: "0x0000000000000000000000000000000000000000" as `0x${string}`,
-        escrowVault: "0x0000000000000000000000000000000000000000" as `0x${string}`,
-        crossChainSettlement: "0x0000000000000000000000000000000000000000" as `0x${string}`,
-    },
-    // Base
-    8453: {
-        intentManager: "0x0000000000000000000000000000000000000000" as `0x${string}`,
-        stableswapAMM: "0x0000000000000000000000000000000000000000" as `0x${string}`,
-        concentratedLiquidity: "0x0000000000000000000000000000000000000000" as `0x${string}`,
-        escrowVault: "0x0000000000000000000000000000000000000000" as `0x${string}`,
-        crossChainSettlement: "0x0000000000000000000000000000000000000000" as `0x${string}`,
-    },
-    // Optimism
-    10: {
-        intentManager: "0x0000000000000000000000000000000000000000" as `0x${string}`,
-        stableswapAMM: "0x0000000000000000000000000000000000000000" as `0x${string}`,
-        concentratedLiquidity: "0x0000000000000000000000000000000000000000" as `0x${string}`,
-        escrowVault: "0x0000000000000000000000000000000000000000" as `0x${string}`,
-        crossChainSettlement: "0x0000000000000000000000000000000000000000" as `0x${string}`,
-    },
     // Sepolia (testnet)
     11155111: {
-        intentManager: "0x0000000000000000000000000000000000000000" as `0x${string}`,
-        stableswapAMM: "0x0000000000000000000000000000000000000000" as `0x${string}`,
-        concentratedLiquidity: "0x0000000000000000000000000000000000000000" as `0x${string}`,
-        escrowVault: "0x0000000000000000000000000000000000000000" as `0x${string}`,
-        crossChainSettlement: "0x0000000000000000000000000000000000000000" as `0x${string}`,
+        aquaLiquidityAccounting: "0x1A2820439118694c8aFD92d71768B8E720b84B95" as `0x${string}`,
+        intentManager: "0xf8B53AF426f8cf33C1bE28CF655DF5B926052AF4" as `0x${string}`,
+        stableswapAMM: "0xA58A2fbab64B2dCBBd3b371f94344a97C0a97ac7" as `0x${string}`,
+        concentratedLiquidity: "0x1314b63De493BC253D73901Ca7172BeAA2496747" as `0x${string}`,
+        escrowVault: "0x5D13851723Bc9364116767c8A703913B15B320A1" as `0x${string}`,
+        crossChainSettlement: "0x8796dC07D8683a59517cef64B7C0C66Ef0f9b351" as `0x${string}`,
+    },
+    // Polygon Amoy (testnet)
+    80002: {
+        aquaLiquidityAccounting: "0xa61ff4608e932353f0249f8b357d38d37b54d1c9" as `0x${string}`,
+        intentManager: "0xb6b6f495bfb1721e93370962589efcc3279f88e7" as `0x${string}`,
+        stableswapAMM: "0xe9c4499b96ae57c580d2674aef79801a20154bce" as `0x${string}`,
+        concentratedLiquidity: "0xdb76a20997b36f62bf5658aac75e7c7ce8629a5a" as `0x${string}`,
+        escrowVault: "0x8ac83a775c044c9d5fb44546ee7dea0867872df5" as `0x${string}`,
+        crossChainSettlement: "0xa3b8b8528ce454347c8fd82e8ce3355972a1e0bb" as `0x${string}`,
     },
 } as const;
 

@@ -3,26 +3,25 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-// Protocol statistics
+// Protocol statistics - default to 0, will update based on user actions
 const protocolStats = {
-    totalVolume: 2_847_392_100_000,
-    activeStrategies: 12_847,
-    crossChainSettlements: 847_293,
-    intentsFilled: 1_293_847,
-    liquidityProviders: 4_293,
-    virtualBalances: 847_000_000_000,
-    aiGatewayRequests: 24_134_286,
-    cacheHits: 89_847_293_000,
+    totalVolume: 0,
+    activeStrategies: 0,
+    crossChainSettlements: 0,
+    intentsFilled: 0,
+    liquidityProviders: 0,
+    virtualBalances: 0,
+    aiGatewayRequests: 0,
+    cacheHits: 0,
 };
 
 const topChains = [
-    { code: "ETH", name: "Ethereum", volume: 1_284_739_210_000, color: "#627EEA" },
-    { code: "ARB", name: "Arbitrum", volume: 493_847_293_000, color: "#28A0F0" },
-    { code: "AVAX", name: "Avalanche", volume: 384_729_300_000, color: "#E84142" },
-    { code: "OP", name: "Optimism", volume: 294_837_200_000, color: "#FF0420" },
-    { code: "BASE", name: "Base", volume: 193_847_200_000, color: "#0052FF" },
-    { code: "MATIC", name: "Polygon", volume: 147_382_900_000, color: "#8247E5" },
-    { code: "BSC", name: "BNB Chain", volume: 48_009_000_000, color: "#F0B90B" },
+    { code: "ETH", name: "Ethereum", volume: 0, color: "#627EEA" },
+    { code: "ARB", name: "Arbitrum", volume: 0, color: "#28A0F0" },
+    { code: "AVAX", name: "Avalanche", volume: 0, color: "#E84142" },
+    { code: "OP", name: "Optimism", volume: 0, color: "#FF0420" },
+    { code: "BASE", name: "Base", volume: 0, color: "#0052FF" },
+    { code: "MATIC", name: "Polygon", volume: 0, color: "#8247E5" },
 ];
 
 function formatNumber(num: number): string {

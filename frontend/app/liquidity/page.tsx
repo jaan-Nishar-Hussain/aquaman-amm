@@ -3,48 +3,24 @@
 import { useState } from "react";
 import Navigation from "../components/Navigation";
 
-const strategies = [
-    {
-        id: 1,
-        type: "concentrated",
-        pair: "ETH/USDC",
-        chain: "Sepolia ETH",
-        rangeLow: 2400,
-        rangeHigh: 3200,
-        liquidity: 125000,
-        earnings: 1847.32,
-        apy: "24.5%",
-        status: "active",
-    },
-    {
-        id: 2,
-        type: "stable",
-        pair: "USDC/USDT",
-        chain: "Polygon",
-        rangeLow: 0.999,
-        rangeHigh: 1.001,
-        liquidity: 500000,
-        earnings: 2341.87,
-        apy: "8.2%",
-        status: "active",
-    },
-    {
-        id: 3,
-        type: "concentrated",
-        pair: "ETH/USDC",
-        chain: "Base Sepolia",
-        rangeLow: 2800,
-        rangeHigh: 3500,
-        liquidity: 75000,
-        earnings: 892.45,
-        apy: "31.2%",
-        status: "active",
-    },
-];
+// Strategies are empty by default, populated when user creates strategies
+const defaultStrategies: {
+    id: number;
+    type: string;
+    pair: string;
+    chain: string;
+    rangeLow: number;
+    rangeHigh: number;
+    liquidity: number;
+    earnings: number;
+    apy: string;
+    status: string;
+}[] = [];
 
 export default function LiquidityPage() {
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [selectedType, setSelectedType] = useState<"concentrated" | "stable">("concentrated");
+    const [strategies, setStrategies] = useState(defaultStrategies);
 
     const totalLiquidity = strategies.reduce((sum, s) => sum + s.liquidity, 0);
     const totalEarnings = strategies.reduce((sum, s) => sum + s.earnings, 0);
@@ -90,7 +66,7 @@ export default function LiquidityPage() {
                     </div>
                     <div className="bg-zinc-900 rounded-lg p-4">
                         <div className="text-gray-400 text-sm mb-1">Avg APY</div>
-                        <div className="text-2xl font-bold text-cyan-400">21.3%</div>
+                        <div className="text-2xl font-bold text-cyan-400">0%</div>
                     </div>
                 </div>
 

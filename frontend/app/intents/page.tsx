@@ -20,59 +20,8 @@ interface Intent {
     settledAmount?: number;
 }
 
-const mockIntents: Intent[] = [
-    {
-        id: "0x1a2b3c...4d5e6f",
-        tokenIn: "ETH",
-        amountIn: 2.5,
-        tokenOut: "USDC",
-        minAmountOut: 7100,
-        sourceChain: "Ethereum",
-        destChain: "Arbitrum",
-        state: "settled",
-        createdAt: new Date(Date.now() - 3600000),
-        deadline: new Date(Date.now() + 3600000),
-        fulfiller: "0xABC...123",
-        settledAmount: 7117.50,
-    },
-    {
-        id: "0x2b3c4d...5e6f7g",
-        tokenIn: "USDC",
-        amountIn: 5000,
-        tokenOut: "AVAX",
-        minAmountOut: 140,
-        sourceChain: "Arbitrum",
-        destChain: "Avalanche",
-        state: "fulfilled",
-        createdAt: new Date(Date.now() - 1800000),
-        deadline: new Date(Date.now() + 7200000),
-        fulfiller: "0xDEF...456",
-    },
-    {
-        id: "0x3c4d5e...6f7g8h",
-        tokenIn: "ETH",
-        amountIn: 1.0,
-        tokenOut: "USDC",
-        minAmountOut: 2840,
-        sourceChain: "Ethereum",
-        destChain: "Base",
-        state: "created",
-        createdAt: new Date(Date.now() - 600000),
-        deadline: new Date(Date.now() + 10800000),
-    },
-    {
-        id: "0x4d5e6f...7g8h9i",
-        tokenIn: "AVAX",
-        amountIn: 100,
-        tokenOut: "USDC",
-        minAmountOut: 3500,
-        sourceChain: "Avalanche",
-        destChain: "Optimism",
-        state: "cancelled",
-        createdAt: new Date(Date.now() - 7200000),
-        deadline: new Date(Date.now() - 3600000),
-    },
-];
+// Intents are empty by default, populated when user creates intents
+const mockIntents: Intent[] = [];
 
 const stateColors: Record<IntentState, { bg: string; text: string }> = {
     created: { bg: "bg-yellow-500/20", text: "text-yellow-400" },
@@ -103,15 +52,16 @@ function formatTimeRemaining(date: Date): string {
 
 export default function IntentsPage() {
     const [filter, setFilter] = useState<IntentState | "all">("all");
+    const [intents, setIntents] = useState<Intent[]>(mockIntents);
 
     const filteredIntents =
-        filter === "all" ? mockIntents : mockIntents.filter((i) => i.state === filter);
+        filter === "all" ? intents : intents.filter((i) => i.state === filter);
 
     const stats = {
-        total: mockIntents.length,
-        created: mockIntents.filter((i) => i.state === "created").length,
-        fulfilled: mockIntents.filter((i) => i.state === "fulfilled").length,
-        settled: mockIntents.filter((i) => i.state === "settled").length,
+        total: intents.length,
+        created: intents.filter((i) => i.state === "created").length,
+        fulfilled: intents.filter((i) => i.state === "fulfilled").length,
+        settled: intents.filter((i) => i.state === "settled").length,
     };
 
     return (
@@ -154,8 +104,8 @@ export default function IntentsPage() {
                             key={state}
                             onClick={() => setFilter(state as IntentState | "all")}
                             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${filter === state
-                                    ? "bg-cyan-500 text-black"
-                                    : "bg-zinc-800 text-gray-400 hover:bg-zinc-700"
+                                ? "bg-cyan-500 text-black"
+                                : "bg-zinc-800 text-gray-400 hover:bg-zinc-700"
                                 }`}
                         >
                             {state.charAt(0).toUpperCase() + state.slice(1)}

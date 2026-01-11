@@ -1,12 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useAccount, useChainId } from "wagmi";
 import Navigation from "../components/Navigation";
+import {
+    useTraderIntents,
+    useCancelIntent,
+    IntentState as ContractIntentState
+} from "@/lib/hooks/useIntentManager";
+import { CONTRACT_ADDRESSES } from "@/lib/contracts/addresses";
+import { IntentManagerABI } from "@/lib/contracts/abis";
 
 type IntentState = "created" | "fulfilled" | "settled" | "cancelled" | "expired";
 
 interface Intent {
     id: string;
+    intentHash: string;
     tokenIn: string;
     amountIn: number;
     tokenOut: string;
@@ -20,15 +29,24 @@ interface Intent {
     settledAmount?: number;
 }
 
-// Intents are empty by default, populated when user creates intents
-const mockIntents: Intent[] = [];
-
 const stateColors: Record<IntentState, { bg: string; text: string }> = {
     created: { bg: "bg-yellow-500/20", text: "text-yellow-400" },
     fulfilled: { bg: "bg-blue-500/20", text: "text-blue-400" },
     settled: { bg: "bg-green-500/20", text: "text-green-400" },
     cancelled: { bg: "bg-gray-500/20", text: "text-gray-400" },
     expired: { bg: "bg-red-500/20", text: "text-red-400" },
+};
+
+// Map contract state enum to string
+const mapContractState = (state: number): IntentState => {
+    switch (state) {
+        case 0: return "created";
+        case 1: return "fulfilled";
+        case 2: return "settled";
+        case 3: return "cancelled";
+        case 4: return "expired";
+        default: return "created";
+    }
 };
 
 function formatTimeAgo(date: Date): string {
@@ -50,9 +68,52 @@ function formatTimeRemaining(date: Date): string {
     return `${hours}h`;
 }
 
+function formatAddress(address: string): string {
+    return `${address.slice(0, 6)}...${address.slice(-4)}`;
+}
+
 export default function IntentsPage() {
+    const { address, isConnected } = useAccount();
+    const chainId = useChainId();
     const [filter, setFilter] = useState<IntentState | "all">("all");
-    const [intents, setIntents] = useState<Intent[]>(mockIntents);
+    const [intents, setIntents] = useState<Intent[]>([]);
+    const [cancellingHash, setCancellingHash] = useState<string | null>(null);
+    const [mounted, setMounted] = useState(false);
+
+    // Get chain id for contract calls
+    const contractChainId = chainId as keyof typeof CONTRACT_ADDRESSES;
+
+    // Fetch trader's intent hashes from contract using ABI
+    const { data: intentHashes, isLoading, refetch } = useTraderIntents(
+        contractChainId,
+        address
+    );
+
+    // Cancel intent hook - uses IntentManagerABI internally
+    const { cancelIntent, isPending: isCancelling, isSuccess: cancelSuccess } = useCancelIntent(contractChainId);
+
+    // Prevent hydration mismatch
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    // Refetch after successful cancel
+    useEffect(() => {
+        if (cancelSuccess) {
+            setCancellingHash(null);
+            refetch();
+        }
+    }, [cancelSuccess, refetch]);
+
+    const handleCancelIntent = async (intentHash: string) => {
+        setCancellingHash(intentHash);
+        try {
+            await cancelIntent(intentHash as `0x${string}`);
+        } catch (err) {
+            console.error("Failed to cancel intent:", err);
+            setCancellingHash(null);
+        }
+    };
 
     const filteredIntents =
         filter === "all" ? intents : intents.filter((i) => i.state === filter);
@@ -63,6 +124,13 @@ export default function IntentsPage() {
         fulfilled: intents.filter((i) => i.state === "fulfilled").length,
         settled: intents.filter((i) => i.state === "settled").length,
     };
+
+    // Show loading for contract intents
+    const showContractInfo = mounted && isConnected;
+    const hasContractIntents = intentHashes && intentHashes.length > 0;
+
+    // Get contract address for display
+    const intentManagerAddress = CONTRACT_ADDRESSES[contractChainId]?.intentManager;
 
     return (
         <main className="font-mono min-h-screen bg-black pt-20">
@@ -76,6 +144,42 @@ export default function IntentsPage() {
                         Track your declarative trade promises
                     </p>
                 </div>
+
+                {/* Connection Status */}
+                {mounted && !isConnected && (
+                    <div className="mb-6 p-4 bg-yellow-500/20 border border-yellow-500 rounded-lg text-yellow-400">
+                        ⚠️ Connect your wallet to view your intents
+                    </div>
+                )}
+
+                {/* Contract Info */}
+                {showContractInfo && (
+                    <div className="mb-6 p-4 bg-zinc-800 rounded-lg">
+                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
+                            <div className="text-sm text-gray-400">
+                                <span>Wallet: </span>
+                                <span className="text-cyan-400 font-mono">{formatAddress(address!)}</span>
+                                <span className="mx-2">|</span>
+                                <span>Chain: </span>
+                                <span className="text-white">{chainId === 11155111 ? "Sepolia" : chainId === 80002 ? "Polygon Amoy" : chainId}</span>
+                            </div>
+                            <div className="text-sm">
+                                {isLoading ? (
+                                    <span className="text-gray-400">Loading intents from IntentManager...</span>
+                                ) : hasContractIntents ? (
+                                    <span className="text-green-400">✓ {intentHashes.length} intent(s) found on-chain</span>
+                                ) : (
+                                    <span className="text-gray-400">No intents found on-chain</span>
+                                )}
+                            </div>
+                        </div>
+                        {intentManagerAddress && (
+                            <div className="mt-2 text-xs text-gray-500">
+                                IntentManager: <span className="font-mono">{intentManagerAddress}</span>
+                            </div>
+                        )}
+                    </div>
+                )}
 
                 {/* Stats */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
@@ -174,8 +278,12 @@ export default function IntentsPage() {
                                 {/* Actions */}
                                 <div className="flex gap-2">
                                     {intent.state === "created" && (
-                                        <button className="px-4 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-lg text-sm">
-                                            Cancel
+                                        <button
+                                            onClick={() => handleCancelIntent(intent.intentHash)}
+                                            disabled={cancellingHash === intent.intentHash || isCancelling}
+                                            className="px-4 py-2 bg-red-500/20 hover:bg-red-500/30 disabled:bg-red-500/10 text-red-400 rounded-lg text-sm"
+                                        >
+                                            {cancellingHash === intent.intentHash ? "Cancelling..." : "Cancel"}
                                         </button>
                                     )}
                                     <button className="px-4 py-2 bg-zinc-700 hover:bg-zinc-600 text-white rounded-lg text-sm">
@@ -214,7 +322,9 @@ export default function IntentsPage() {
 
                 {filteredIntents.length === 0 && (
                     <div className="text-center py-12 text-gray-400">
-                        No intents found for this filter.
+                        {isConnected
+                            ? "No intents found. Create one from the Swap page!"
+                            : "Connect your wallet to view your intents."}
                     </div>
                 )}
 

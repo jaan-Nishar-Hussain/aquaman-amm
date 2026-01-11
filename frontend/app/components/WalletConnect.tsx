@@ -1,7 +1,7 @@
 "use client";
 
 import { useAccount, useConnect, useDisconnect, useChainId, useSwitchChain } from "wagmi";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const SUPPORTED_CHAINS = [
     { id: 11155111, name: "Sepolia", color: "#627EEA" },
@@ -16,12 +16,30 @@ export function WalletConnect() {
     const { switchChain } = useSwitchChain();
     const [showDropdown, setShowDropdown] = useState(false);
     const [showChainSelector, setShowChainSelector] = useState(false);
+    const [mounted, setMounted] = useState(false);
+
+    // Prevent hydration mismatch by only rendering after mount
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
     const currentChain = SUPPORTED_CHAINS.find((c) => c.id === chainId);
 
     const formatAddress = (addr: string) => {
         return `${addr.slice(0, 6)}...${addr.slice(-4)}`;
     };
+
+    // Show loading placeholder until mounted to prevent hydration mismatch
+    if (!mounted) {
+        return (
+            <button
+                disabled
+                className="px-4 py-2 bg-zinc-700 text-gray-400 font-bold rounded-lg"
+            >
+                Loading...
+            </button>
+        );
+    }
 
     if (!isConnected) {
         return (

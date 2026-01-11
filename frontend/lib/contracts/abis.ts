@@ -1,807 +1,2017 @@
 // Contract ABIs for Aquaman Protocol
 // Auto-generated from Foundry build output
 
-export const IntentManagerABI = [
+export const AquaLiquidityAccountingABI = [
     {
-        type: "function",
-        name: "createIntent",
-        inputs: [
+        "type": "constructor",
+        "inputs": [],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "function",
+        "name": "computeStrategyHash",
+        "inputs": [
             {
-                name: "params",
-                type: "tuple",
-                components: [
-                    { name: "tokenIn", type: "address" },
-                    { name: "amountIn", type: "uint256" },
-                    { name: "tokenOut", type: "address" },
-                    { name: "minAmountOut", type: "uint256" },
-                    { name: "recipient", type: "address" },
-                    { name: "deadline", type: "uint256" },
-                ],
-            },
+                "name": "strategy",
+                "type": "tuple",
+                "internalType": "struct IAqua.Strategy",
+                "components": [
+                    {
+                        "name": "maker",
+                        "type": "address",
+                        "internalType": "address"
+                    },
+                    {
+                        "name": "tokenIn",
+                        "type": "address",
+                        "internalType": "address"
+                    },
+                    {
+                        "name": "tokenOut",
+                        "type": "address",
+                        "internalType": "address"
+                    },
+                    {
+                        "name": "amountIn",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "amountOut",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "priceLower",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "priceUpper",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "expiry",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "salt",
+                        "type": "bytes32",
+                        "internalType": "bytes32"
+                    }
+                ]
+            }
         ],
-        outputs: [{ name: "intentHash", type: "bytes32" }],
-        stateMutability: "nonpayable",
-    },
-    {
-        type: "function",
-        name: "cancelIntent",
-        inputs: [{ name: "intentHash", type: "bytes32" }],
-        outputs: [],
-        stateMutability: "nonpayable",
-    },
-    {
-        type: "function",
-        name: "fulfillIntent",
-        inputs: [
-            { name: "intentHash", type: "bytes32" },
-            { name: "amountOut", type: "uint256" },
-        ],
-        outputs: [],
-        stateMutability: "nonpayable",
-    },
-    {
-        type: "function",
-        name: "settleIntent",
-        inputs: [{ name: "intentHash", type: "bytes32" }],
-        outputs: [],
-        stateMutability: "nonpayable",
-    },
-    {
-        type: "function",
-        name: "expireIntent",
-        inputs: [{ name: "intentHash", type: "bytes32" }],
-        outputs: [],
-        stateMutability: "nonpayable",
-    },
-    {
-        type: "function",
-        name: "getIntent",
-        inputs: [{ name: "intentHash", type: "bytes32" }],
-        outputs: [
+        "outputs": [
             {
-                name: "",
-                type: "tuple",
-                components: [
-                    { name: "intentHash", type: "bytes32" },
-                    { name: "trader", type: "address" },
-                    { name: "tokenIn", type: "address" },
-                    { name: "amountIn", type: "uint256" },
-                    { name: "tokenOut", type: "address" },
-                    { name: "minAmountOut", type: "uint256" },
-                    { name: "recipient", type: "address" },
-                    { name: "deadline", type: "uint256" },
-                    { name: "nonce", type: "uint256" },
-                    { name: "state", type: "uint8" },
-                    { name: "fulfiller", type: "address" },
-                    { name: "fulfilledAmount", type: "uint256" },
-                ],
+                "name": "",
+                "type": "bytes32",
+                "internalType": "bytes32"
+            }
+        ],
+        "stateMutability": "pure"
+    },
+    {
+        "type": "function",
+        "name": "deposit",
+        "inputs": [
+            {
+                "name": "app",
+                "type": "address",
+                "internalType": "address"
             },
+            {
+                "name": "strategyHash",
+                "type": "bytes32",
+                "internalType": "bytes32"
+            },
+            {
+                "name": "token",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "amount",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
         ],
-        stateMutability: "view",
+        "outputs": [],
+        "stateMutability": "nonpayable"
     },
     {
-        type: "function",
-        name: "getIntentState",
-        inputs: [{ name: "intentHash", type: "bytes32" }],
-        outputs: [{ name: "", type: "uint8" }],
-        stateMutability: "view",
-    },
-    {
-        type: "function",
-        name: "getTraderIntents",
-        inputs: [{ name: "trader", type: "address" }],
-        outputs: [{ name: "", type: "bytes32[]" }],
-        stateMutability: "view",
-    },
-    {
-        type: "function",
-        name: "getTraderNonce",
-        inputs: [{ name: "trader", type: "address" }],
-        outputs: [{ name: "", type: "uint256" }],
-        stateMutability: "view",
-    },
-    {
-        type: "function",
-        name: "isIntentFillable",
-        inputs: [{ name: "intentHash", type: "bytes32" }],
-        outputs: [{ name: "", type: "bool" }],
-        stateMutability: "view",
-    },
-    {
-        type: "function",
-        name: "isIntentSettleable",
-        inputs: [{ name: "intentHash", type: "bytes32" }],
-        outputs: [{ name: "", type: "bool" }],
-        stateMutability: "view",
-    },
-    {
-        type: "function",
-        name: "owner",
-        inputs: [],
-        outputs: [{ name: "", type: "address" }],
-        stateMutability: "view",
-    },
-    {
-        type: "function",
-        name: "protocolFeeBps",
-        inputs: [],
-        outputs: [{ name: "", type: "uint256" }],
-        stateMutability: "view",
-    },
-    {
-        type: "event",
-        name: "IntentCreated",
-        inputs: [
-            { name: "intentHash", type: "bytes32", indexed: true },
-            { name: "trader", type: "address", indexed: true },
-            { name: "tokenIn", type: "address", indexed: false },
-            { name: "amountIn", type: "uint256", indexed: false },
-            { name: "tokenOut", type: "address", indexed: false },
-            { name: "minAmountOut", type: "uint256", indexed: false },
-            { name: "deadline", type: "uint256", indexed: false },
+        "type": "function",
+        "name": "getBalance",
+        "inputs": [
+            {
+                "name": "maker",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "app",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "strategyHash",
+                "type": "bytes32",
+                "internalType": "bytes32"
+            },
+            {
+                "name": "token",
+                "type": "address",
+                "internalType": "address"
+            }
         ],
-        anonymous: false,
+        "outputs": [
+            {
+                "name": "",
+                "type": "tuple",
+                "internalType": "struct IAqua.Balance",
+                "components": [
+                    {
+                        "name": "amount",
+                        "type": "uint248",
+                        "internalType": "uint248"
+                    },
+                    {
+                        "name": "tokensCount",
+                        "type": "uint8",
+                        "internalType": "uint8"
+                    }
+                ]
+            }
+        ],
+        "stateMutability": "view"
     },
     {
-        type: "event",
-        name: "IntentFulfilled",
-        inputs: [
-            { name: "intentHash", type: "bytes32", indexed: true },
-            { name: "fulfiller", type: "address", indexed: true },
-            { name: "amountOut", type: "uint256", indexed: false },
+        "type": "function",
+        "name": "getStrategy",
+        "inputs": [
+            {
+                "name": "strategyHash",
+                "type": "bytes32",
+                "internalType": "bytes32"
+            }
         ],
-        anonymous: false,
+        "outputs": [
+            {
+                "name": "",
+                "type": "tuple",
+                "internalType": "struct IAqua.Strategy",
+                "components": [
+                    {
+                        "name": "maker",
+                        "type": "address",
+                        "internalType": "address"
+                    },
+                    {
+                        "name": "tokenIn",
+                        "type": "address",
+                        "internalType": "address"
+                    },
+                    {
+                        "name": "tokenOut",
+                        "type": "address",
+                        "internalType": "address"
+                    },
+                    {
+                        "name": "amountIn",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "amountOut",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "priceLower",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "priceUpper",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "expiry",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "salt",
+                        "type": "bytes32",
+                        "internalType": "bytes32"
+                    }
+                ]
+            }
+        ],
+        "stateMutability": "view"
     },
     {
-        type: "event",
-        name: "IntentSettled",
-        inputs: [
-            { name: "intentHash", type: "bytes32", indexed: true },
-            { name: "trader", type: "address", indexed: true },
-            { name: "fulfiller", type: "address", indexed: true },
-            { name: "amountIn", type: "uint256", indexed: false },
-            { name: "amountOut", type: "uint256", indexed: false },
+        "type": "function",
+        "name": "isAppRegistered",
+        "inputs": [
+            {
+                "name": "app",
+                "type": "address",
+                "internalType": "address"
+            }
         ],
-        anonymous: false,
+        "outputs": [
+            {
+                "name": "",
+                "type": "bool",
+                "internalType": "bool"
+            }
+        ],
+        "stateMutability": "view"
     },
     {
-        type: "event",
-        name: "IntentCancelled",
-        inputs: [
-            { name: "intentHash", type: "bytes32", indexed: true },
-            { name: "trader", type: "address", indexed: true },
+        "type": "function",
+        "name": "isStrategyActive",
+        "inputs": [
+            {
+                "name": "maker",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "strategyHash",
+                "type": "bytes32",
+                "internalType": "bytes32"
+            }
         ],
-        anonymous: false,
+        "outputs": [
+            {
+                "name": "",
+                "type": "bool",
+                "internalType": "bool"
+            }
+        ],
+        "stateMutability": "view"
     },
+    {
+        "type": "function",
+        "name": "owner",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "address",
+                "internalType": "address"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "pull",
+        "inputs": [
+            {
+                "name": "maker",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "strategyHash",
+                "type": "bytes32",
+                "internalType": "bytes32"
+            },
+            {
+                "name": "token",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "amount",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "recipient",
+                "type": "address",
+                "internalType": "address"
+            }
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "function",
+        "name": "push",
+        "inputs": [
+            {
+                "name": "maker",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "strategyHash",
+                "type": "bytes32",
+                "internalType": "bytes32"
+            },
+            {
+                "name": "token",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "amount",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "function",
+        "name": "registerStrategy",
+        "inputs": [
+            {
+                "name": "strategy",
+                "type": "tuple",
+                "internalType": "struct IAqua.Strategy",
+                "components": [
+                    {
+                        "name": "maker",
+                        "type": "address",
+                        "internalType": "address"
+                    },
+                    {
+                        "name": "tokenIn",
+                        "type": "address",
+                        "internalType": "address"
+                    },
+                    {
+                        "name": "tokenOut",
+                        "type": "address",
+                        "internalType": "address"
+                    },
+                    {
+                        "name": "amountIn",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "amountOut",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "priceLower",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "priceUpper",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "expiry",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "salt",
+                        "type": "bytes32",
+                        "internalType": "bytes32"
+                    }
+                ]
+            }
+        ],
+        "outputs": [
+            {
+                "name": "strategyHash",
+                "type": "bytes32",
+                "internalType": "bytes32"
+            }
+        ],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "function",
+        "name": "renounceOwnership",
+        "inputs": [],
+        "outputs": [],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "function",
+        "name": "setAppRegistration",
+        "inputs": [
+            {
+                "name": "app",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "active",
+                "type": "bool",
+                "internalType": "bool"
+            }
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "function",
+        "name": "transferOwnership",
+        "inputs": [
+            {
+                "name": "newOwner",
+                "type": "address",
+                "internalType": "address"
+            }
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "function",
+        "name": "withdraw",
+        "inputs": [
+            {
+                "name": "app",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "strategyHash",
+                "type": "bytes32",
+                "internalType": "bytes32"
+            },
+            {
+                "name": "token",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "amount",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "event",
+        "name": "AppRegistered",
+        "inputs": [
+            {
+                "name": "app",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
+            },
+            {
+                "name": "active",
+                "type": "bool",
+                "indexed": false,
+                "internalType": "bool"
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "OwnershipTransferred",
+        "inputs": [
+            {
+                "name": "previousOwner",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
+            },
+            {
+                "name": "newOwner",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "Pull",
+        "inputs": [
+            {
+                "name": "maker",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
+            },
+            {
+                "name": "app",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
+            },
+            {
+                "name": "strategyHash",
+                "type": "bytes32",
+                "indexed": true,
+                "internalType": "bytes32"
+            },
+            {
+                "name": "token",
+                "type": "address",
+                "indexed": false,
+                "internalType": "address"
+            },
+            {
+                "name": "amount",
+                "type": "uint256",
+                "indexed": false,
+                "internalType": "uint256"
+            },
+            {
+                "name": "recipient",
+                "type": "address",
+                "indexed": false,
+                "internalType": "address"
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "Push",
+        "inputs": [
+            {
+                "name": "maker",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
+            },
+            {
+                "name": "app",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
+            },
+            {
+                "name": "strategyHash",
+                "type": "bytes32",
+                "indexed": true,
+                "internalType": "bytes32"
+            },
+            {
+                "name": "token",
+                "type": "address",
+                "indexed": false,
+                "internalType": "address"
+            },
+            {
+                "name": "amount",
+                "type": "uint256",
+                "indexed": false,
+                "internalType": "uint256"
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "StrategyRegistered",
+        "inputs": [
+            {
+                "name": "maker",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
+            },
+            {
+                "name": "strategyHash",
+                "type": "bytes32",
+                "indexed": true,
+                "internalType": "bytes32"
+            },
+            {
+                "name": "strategy",
+                "type": "tuple",
+                "indexed": false,
+                "internalType": "struct IAqua.Strategy",
+                "components": [
+                    {
+                        "name": "maker",
+                        "type": "address",
+                        "internalType": "address"
+                    },
+                    {
+                        "name": "tokenIn",
+                        "type": "address",
+                        "internalType": "address"
+                    },
+                    {
+                        "name": "tokenOut",
+                        "type": "address",
+                        "internalType": "address"
+                    },
+                    {
+                        "name": "amountIn",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "amountOut",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "priceLower",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "priceUpper",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "expiry",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "salt",
+                        "type": "bytes32",
+                        "internalType": "bytes32"
+                    }
+                ]
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "error",
+        "name": "BalanceOverflow",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "ExpiredStrategy",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "InsufficientBalance",
+        "inputs": [
+            {
+                "name": "requested",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "available",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ]
+    },
+    {
+        "type": "error",
+        "name": "InvalidStrategy",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "OwnableInvalidOwner",
+        "inputs": [
+            {
+                "name": "owner",
+                "type": "address",
+                "internalType": "address"
+            }
+        ]
+    },
+    {
+        "type": "error",
+        "name": "OwnableUnauthorizedAccount",
+        "inputs": [
+            {
+                "name": "account",
+                "type": "address",
+                "internalType": "address"
+            }
+        ]
+    },
+    {
+        "type": "error",
+        "name": "ReentrancyGuardReentrantCall",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "SafeERC20FailedOperation",
+        "inputs": [
+            {
+                "name": "token",
+                "type": "address",
+                "internalType": "address"
+            }
+        ]
+    },
+    {
+        "type": "error",
+        "name": "StrategyAlreadyExists",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "StrategyNotActive",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "StrategyNotFound",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "UnauthorizedApp",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "ZeroAddress",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "ZeroAmount",
+        "inputs": []
+    }
 ] as const;
 
 export const StableswapAMMABI = [
     {
-        type: "function",
-        name: "swap",
-        inputs: [
-            { name: "poolId", type: "uint256" },
-            { name: "tokenIn", type: "address" },
-            { name: "amountIn", type: "uint256" },
-            { name: "minAmountOut", type: "uint256" },
-            { name: "recipient", type: "address" },
-        ],
-        outputs: [{ name: "amountOut", type: "uint256" }],
-        stateMutability: "nonpayable",
-    },
-    {
-        type: "function",
-        name: "quote",
-        inputs: [
-            { name: "poolId", type: "uint256" },
-            { name: "tokenIn", type: "address" },
-            { name: "amountIn", type: "uint256" },
-        ],
-        outputs: [{ name: "amountOut", type: "uint256" }],
-        stateMutability: "view",
-    },
-    {
-        type: "function",
-        name: "addLiquidity",
-        inputs: [
-            { name: "poolId", type: "uint256" },
-            { name: "amount0", type: "uint256" },
-            { name: "amount1", type: "uint256" },
-        ],
-        outputs: [],
-        stateMutability: "nonpayable",
-    },
-    {
-        type: "function",
-        name: "createPool",
-        inputs: [
-            { name: "token0", type: "address" },
-            { name: "token1", type: "address" },
-            { name: "amplificationFactor", type: "uint256" },
-            { name: "fee", type: "uint256" },
-        ],
-        outputs: [{ name: "poolId", type: "uint256" }],
-        stateMutability: "nonpayable",
-    },
-    {
-        type: "function",
-        name: "getPool",
-        inputs: [{ name: "poolId", type: "uint256" }],
-        outputs: [
+        "type": "constructor",
+        "inputs": [
             {
-                name: "",
-                type: "tuple",
-                components: [
-                    { name: "token0", type: "address" },
-                    { name: "token1", type: "address" },
-                    { name: "reserve0", type: "uint256" },
-                    { name: "reserve1", type: "uint256" },
-                    { name: "amplificationFactor", type: "uint256" },
-                    { name: "fee", type: "uint256" },
-                    { name: "active", type: "bool" },
-                ],
+                "name": "_aqua",
+                "type": "address",
+                "internalType": "address"
+            }
+        ],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "function",
+        "name": "addLiquidity",
+        "inputs": [
+            {
+                "name": "poolId",
+                "type": "uint256",
+                "internalType": "uint256"
             },
+            {
+                "name": "amount0",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "amount1",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
         ],
-        stateMutability: "view",
+        "outputs": [],
+        "stateMutability": "nonpayable"
     },
     {
-        type: "function",
-        name: "getPoolByTokens",
-        inputs: [
-            { name: "token0", type: "address" },
-            { name: "token1", type: "address" },
+        "type": "function",
+        "name": "aqua",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "address",
+                "internalType": "contract IAqua"
+            }
         ],
-        outputs: [{ name: "", type: "uint256" }],
-        stateMutability: "view",
+        "stateMutability": "view"
     },
     {
-        type: "function",
-        name: "poolCount",
-        inputs: [],
-        outputs: [{ name: "", type: "uint256" }],
-        stateMutability: "view",
+        "type": "function",
+        "name": "createPool",
+        "inputs": [
+            {
+                "name": "token0",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "token1",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "amplificationFactor",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "fee",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "poolId",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "stateMutability": "nonpayable"
     },
     {
-        type: "event",
-        name: "Swap",
-        inputs: [
-            { name: "poolId", type: "uint256", indexed: true },
-            { name: "sender", type: "address", indexed: true },
-            { name: "tokenIn", type: "address", indexed: false },
-            { name: "tokenOut", type: "address", indexed: false },
-            { name: "amountIn", type: "uint256", indexed: false },
-            { name: "amountOut", type: "uint256", indexed: false },
+        "type": "function",
+        "name": "getPool",
+        "inputs": [
+            {
+                "name": "poolId",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
         ],
-        anonymous: false,
+        "outputs": [
+            {
+                "name": "",
+                "type": "tuple",
+                "internalType": "struct StableswapAMM.Pool",
+                "components": [
+                    {
+                        "name": "token0",
+                        "type": "address",
+                        "internalType": "address"
+                    },
+                    {
+                        "name": "token1",
+                        "type": "address",
+                        "internalType": "address"
+                    },
+                    {
+                        "name": "reserve0",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "reserve1",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "amplificationFactor",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "fee",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "active",
+                        "type": "bool",
+                        "internalType": "bool"
+                    }
+                ]
+            }
+        ],
+        "stateMutability": "view"
     },
     {
-        type: "event",
-        name: "PoolCreated",
-        inputs: [
-            { name: "poolId", type: "uint256", indexed: true },
-            { name: "token0", type: "address", indexed: true },
-            { name: "token1", type: "address", indexed: true },
-            { name: "amplificationFactor", type: "uint256", indexed: false },
-            { name: "fee", type: "uint256", indexed: false },
+        "type": "function",
+        "name": "getPoolByTokens",
+        "inputs": [
+            {
+                "name": "token0",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "token1",
+                "type": "address",
+                "internalType": "address"
+            }
         ],
-        anonymous: false,
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "stateMutability": "view"
     },
     {
-        type: "event",
-        name: "LiquidityAdded",
-        inputs: [
-            { name: "poolId", type: "uint256", indexed: true },
-            { name: "provider", type: "address", indexed: true },
-            { name: "amount0", type: "uint256", indexed: false },
-            { name: "amount1", type: "uint256", indexed: false },
+        "type": "function",
+        "name": "poolCount",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
         ],
-        anonymous: false,
+        "stateMutability": "view"
     },
+    {
+        "type": "function",
+        "name": "poolIds",
+        "inputs": [
+            {
+                "name": "token0",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "token1",
+                "type": "address",
+                "internalType": "address"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "pools",
+        "inputs": [
+            {
+                "name": "poolId",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "token0",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "token1",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "reserve0",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "reserve1",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "amplificationFactor",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "fee",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "active",
+                "type": "bool",
+                "internalType": "bool"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "quote",
+        "inputs": [
+            {
+                "name": "poolId",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "tokenIn",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "amountIn",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "amountOut",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "swap",
+        "inputs": [
+            {
+                "name": "poolId",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "tokenIn",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "amountIn",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "minAmountOut",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "recipient",
+                "type": "address",
+                "internalType": "address"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "amountOut",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "event",
+        "name": "LiquidityAdded",
+        "inputs": [
+            {
+                "name": "poolId",
+                "type": "uint256",
+                "indexed": true,
+                "internalType": "uint256"
+            },
+            {
+                "name": "provider",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
+            },
+            {
+                "name": "amount0",
+                "type": "uint256",
+                "indexed": false,
+                "internalType": "uint256"
+            },
+            {
+                "name": "amount1",
+                "type": "uint256",
+                "indexed": false,
+                "internalType": "uint256"
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "PoolCreated",
+        "inputs": [
+            {
+                "name": "poolId",
+                "type": "uint256",
+                "indexed": true,
+                "internalType": "uint256"
+            },
+            {
+                "name": "token0",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
+            },
+            {
+                "name": "token1",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
+            },
+            {
+                "name": "amplificationFactor",
+                "type": "uint256",
+                "indexed": false,
+                "internalType": "uint256"
+            },
+            {
+                "name": "fee",
+                "type": "uint256",
+                "indexed": false,
+                "internalType": "uint256"
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "Swap",
+        "inputs": [
+            {
+                "name": "poolId",
+                "type": "uint256",
+                "indexed": true,
+                "internalType": "uint256"
+            },
+            {
+                "name": "sender",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
+            },
+            {
+                "name": "tokenIn",
+                "type": "address",
+                "indexed": false,
+                "internalType": "address"
+            },
+            {
+                "name": "tokenOut",
+                "type": "address",
+                "indexed": false,
+                "internalType": "address"
+            },
+            {
+                "name": "amountIn",
+                "type": "uint256",
+                "indexed": false,
+                "internalType": "uint256"
+            },
+            {
+                "name": "amountOut",
+                "type": "uint256",
+                "indexed": false,
+                "internalType": "uint256"
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "error",
+        "name": "CallbackFailed",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "InsufficientLiquidity",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "InsufficientOutput",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "InvalidAmplificationFactor",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "InvalidFee",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "InvalidPool",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "PoolNotActive",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "ReentrancyGuardReentrantCall",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "SafeERC20FailedOperation",
+        "inputs": [
+            {
+                "name": "token",
+                "type": "address",
+                "internalType": "address"
+            }
+        ]
+    },
+    {
+        "type": "error",
+        "name": "SlippageExceeded",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "ZeroAmount",
+        "inputs": []
+    }
 ] as const;
 
 export const ConcentratedLiquiditySwapABI = [
     {
-        type: "function",
-        name: "swap",
-        inputs: [
-            { name: "token0", type: "address" },
-            { name: "token1", type: "address" },
-            { name: "fee", type: "uint24" },
-            { name: "zeroForOne", type: "bool" },
-            { name: "amountSpecified", type: "int256" },
-            { name: "sqrtPriceLimitX96", type: "uint160" },
-            { name: "recipient", type: "address" },
-        ],
-        outputs: [
-            { name: "amount0", type: "int256" },
-            { name: "amount1", type: "int256" },
-        ],
-        stateMutability: "nonpayable",
-    },
-    {
-        type: "function",
-        name: "quote",
-        inputs: [
-            { name: "token0", type: "address" },
-            { name: "token1", type: "address" },
-            { name: "fee", type: "uint24" },
-            { name: "zeroForOne", type: "bool" },
-            { name: "amountIn", type: "uint256" },
-        ],
-        outputs: [{ name: "amountOut", type: "uint256" }],
-        stateMutability: "view",
-    },
-    {
-        type: "function",
-        name: "initializePool",
-        inputs: [
-            { name: "token0", type: "address" },
-            { name: "token1", type: "address" },
-            { name: "fee", type: "uint24" },
-            { name: "sqrtPriceX96", type: "uint160" },
-        ],
-        outputs: [],
-        stateMutability: "nonpayable",
-    },
-    {
-        type: "function",
-        name: "mint",
-        inputs: [
-            { name: "token0", type: "address" },
-            { name: "token1", type: "address" },
-            { name: "fee", type: "uint24" },
-            { name: "tickLower", type: "int24" },
-            { name: "tickUpper", type: "int24" },
-            { name: "amount0Desired", type: "uint256" },
-            { name: "amount1Desired", type: "uint256" },
-        ],
-        outputs: [
-            { name: "positionId", type: "uint256" },
-            { name: "liquidity", type: "uint128" },
-            { name: "amount0", type: "uint256" },
-            { name: "amount1", type: "uint256" },
-        ],
-        stateMutability: "nonpayable",
-    },
-    {
-        type: "function",
-        name: "getPoolState",
-        inputs: [
-            { name: "token0", type: "address" },
-            { name: "token1", type: "address" },
-            { name: "fee", type: "uint24" },
-        ],
-        outputs: [
+        "type": "constructor",
+        "inputs": [
             {
-                name: "",
-                type: "tuple",
-                components: [
-                    { name: "token0", type: "address" },
-                    { name: "token1", type: "address" },
-                    { name: "fee", type: "uint24" },
-                    { name: "tickSpacing", type: "int24" },
-                    { name: "currentTick", type: "int24" },
-                    { name: "sqrtPriceX96", type: "uint160" },
-                    { name: "liquidity", type: "uint128" },
-                    { name: "initialized", type: "bool" },
-                ],
-            },
+                "name": "_aqua",
+                "type": "address",
+                "internalType": "address"
+            }
         ],
-        stateMutability: "view",
+        "stateMutability": "nonpayable"
     },
     {
-        type: "function",
-        name: "getPosition",
-        inputs: [{ name: "positionId", type: "uint256" }],
-        outputs: [
+        "type": "function",
+        "name": "MAX_TICK",
+        "inputs": [],
+        "outputs": [
             {
-                name: "",
-                type: "tuple",
-                components: [
-                    { name: "owner", type: "address" },
-                    { name: "token0", type: "address" },
-                    { name: "token1", type: "address" },
-                    { name: "liquidity", type: "uint256" },
-                    { name: "tickLower", type: "int24" },
-                    { name: "tickUpper", type: "int24" },
-                    { name: "feeGrowthInside0", type: "uint256" },
-                    { name: "feeGrowthInside1", type: "uint256" },
-                    { name: "tokensOwed0", type: "uint128" },
-                    { name: "tokensOwed1", type: "uint128" },
-                    { name: "active", type: "bool" },
-                ],
+                "name": "",
+                "type": "int24",
+                "internalType": "int24"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "MIN_TICK",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "int24",
+                "internalType": "int24"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "Q96",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "aqua",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "address",
+                "internalType": "contract IAqua"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "feeGrowthGlobal0X128",
+        "inputs": [
+            {
+                "name": "poolKey",
+                "type": "bytes32",
+                "internalType": "bytes32"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "feeGrowthGlobal1X128",
+        "inputs": [
+            {
+                "name": "poolKey",
+                "type": "bytes32",
+                "internalType": "bytes32"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "getPoolState",
+        "inputs": [
+            {
+                "name": "token0",
+                "type": "address",
+                "internalType": "address"
             },
+            {
+                "name": "token1",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "fee",
+                "type": "uint24",
+                "internalType": "uint24"
+            }
         ],
-        stateMutability: "view",
+        "outputs": [
+            {
+                "name": "",
+                "type": "tuple",
+                "internalType": "struct ConcentratedLiquiditySwap.PoolState",
+                "components": [
+                    {
+                        "name": "token0",
+                        "type": "address",
+                        "internalType": "address"
+                    },
+                    {
+                        "name": "token1",
+                        "type": "address",
+                        "internalType": "address"
+                    },
+                    {
+                        "name": "fee",
+                        "type": "uint24",
+                        "internalType": "uint24"
+                    },
+                    {
+                        "name": "tickSpacing",
+                        "type": "int24",
+                        "internalType": "int24"
+                    },
+                    {
+                        "name": "currentTick",
+                        "type": "int24",
+                        "internalType": "int24"
+                    },
+                    {
+                        "name": "sqrtPriceX96",
+                        "type": "uint160",
+                        "internalType": "uint160"
+                    },
+                    {
+                        "name": "liquidity",
+                        "type": "uint128",
+                        "internalType": "uint128"
+                    },
+                    {
+                        "name": "initialized",
+                        "type": "bool",
+                        "internalType": "bool"
+                    }
+                ]
+            }
+        ],
+        "stateMutability": "view"
     },
     {
-        type: "function",
-        name: "positionCount",
-        inputs: [],
-        outputs: [{ name: "", type: "uint256" }],
-        stateMutability: "view",
+        "type": "function",
+        "name": "getPosition",
+        "inputs": [
+            {
+                "name": "positionId",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "",
+                "type": "tuple",
+                "internalType": "struct ConcentratedLiquiditySwap.Position",
+                "components": [
+                    {
+                        "name": "owner",
+                        "type": "address",
+                        "internalType": "address"
+                    },
+                    {
+                        "name": "token0",
+                        "type": "address",
+                        "internalType": "address"
+                    },
+                    {
+                        "name": "token1",
+                        "type": "address",
+                        "internalType": "address"
+                    },
+                    {
+                        "name": "liquidity",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "tickLower",
+                        "type": "int24",
+                        "internalType": "int24"
+                    },
+                    {
+                        "name": "tickUpper",
+                        "type": "int24",
+                        "internalType": "int24"
+                    },
+                    {
+                        "name": "feeGrowthInside0",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "feeGrowthInside1",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "tokensOwed0",
+                        "type": "uint128",
+                        "internalType": "uint128"
+                    },
+                    {
+                        "name": "tokensOwed1",
+                        "type": "uint128",
+                        "internalType": "uint128"
+                    },
+                    {
+                        "name": "active",
+                        "type": "bool",
+                        "internalType": "bool"
+                    }
+                ]
+            }
+        ],
+        "stateMutability": "view"
     },
     {
-        type: "event",
-        name: "Swap",
-        inputs: [
-            { name: "poolKey", type: "bytes32", indexed: true },
-            { name: "sender", type: "address", indexed: true },
-            { name: "recipient", type: "address", indexed: false },
-            { name: "amount0", type: "int256", indexed: false },
-            { name: "amount1", type: "int256", indexed: false },
-            { name: "sqrtPriceX96", type: "uint160", indexed: false },
-            { name: "tick", type: "int24", indexed: false },
+        "type": "function",
+        "name": "initializePool",
+        "inputs": [
+            {
+                "name": "token0",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "token1",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "fee",
+                "type": "uint24",
+                "internalType": "uint24"
+            },
+            {
+                "name": "sqrtPriceX96",
+                "type": "uint160",
+                "internalType": "uint160"
+            }
         ],
-        anonymous: false,
+        "outputs": [],
+        "stateMutability": "nonpayable"
     },
     {
-        type: "event",
-        name: "PositionMinted",
-        inputs: [
-            { name: "positionId", type: "uint256", indexed: true },
-            { name: "owner", type: "address", indexed: true },
-            { name: "tickLower", type: "int24", indexed: false },
-            { name: "tickUpper", type: "int24", indexed: false },
-            { name: "liquidity", type: "uint256", indexed: false },
-            { name: "amount0", type: "uint256", indexed: false },
-            { name: "amount1", type: "uint256", indexed: false },
+        "type": "function",
+        "name": "mint",
+        "inputs": [
+            {
+                "name": "token0",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "token1",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "fee",
+                "type": "uint24",
+                "internalType": "uint24"
+            },
+            {
+                "name": "tickLower",
+                "type": "int24",
+                "internalType": "int24"
+            },
+            {
+                "name": "tickUpper",
+                "type": "int24",
+                "internalType": "int24"
+            },
+            {
+                "name": "amount0Desired",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "amount1Desired",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
         ],
-        anonymous: false,
+        "outputs": [
+            {
+                "name": "positionId",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "liquidity",
+                "type": "uint128",
+                "internalType": "uint128"
+            },
+            {
+                "name": "amount0",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "amount1",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "stateMutability": "nonpayable"
     },
     {
-        type: "event",
-        name: "PoolInitialized",
-        inputs: [
-            { name: "token0", type: "address", indexed: true },
-            { name: "token1", type: "address", indexed: true },
-            { name: "fee", type: "uint24", indexed: false },
-            { name: "tickSpacing", type: "int24", indexed: false },
-            { name: "sqrtPriceX96", type: "uint160", indexed: false },
+        "type": "function",
+        "name": "poolStates",
+        "inputs": [
+            {
+                "name": "poolKey",
+                "type": "bytes32",
+                "internalType": "bytes32"
+            }
         ],
-        anonymous: false,
+        "outputs": [
+            {
+                "name": "token0",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "token1",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "fee",
+                "type": "uint24",
+                "internalType": "uint24"
+            },
+            {
+                "name": "tickSpacing",
+                "type": "int24",
+                "internalType": "int24"
+            },
+            {
+                "name": "currentTick",
+                "type": "int24",
+                "internalType": "int24"
+            },
+            {
+                "name": "sqrtPriceX96",
+                "type": "uint160",
+                "internalType": "uint160"
+            },
+            {
+                "name": "liquidity",
+                "type": "uint128",
+                "internalType": "uint128"
+            },
+            {
+                "name": "initialized",
+                "type": "bool",
+                "internalType": "bool"
+            }
+        ],
+        "stateMutability": "view"
     },
+    {
+        "type": "function",
+        "name": "positionCount",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "positions",
+        "inputs": [
+            {
+                "name": "positionId",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "owner",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "token0",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "token1",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "liquidity",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "tickLower",
+                "type": "int24",
+                "internalType": "int24"
+            },
+            {
+                "name": "tickUpper",
+                "type": "int24",
+                "internalType": "int24"
+            },
+            {
+                "name": "feeGrowthInside0",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "feeGrowthInside1",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "tokensOwed0",
+                "type": "uint128",
+                "internalType": "uint128"
+            },
+            {
+                "name": "tokensOwed1",
+                "type": "uint128",
+                "internalType": "uint128"
+            },
+            {
+                "name": "active",
+                "type": "bool",
+                "internalType": "bool"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "quote",
+        "inputs": [
+            {
+                "name": "token0",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "token1",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "fee",
+                "type": "uint24",
+                "internalType": "uint24"
+            },
+            {
+                "name": "zeroForOne",
+                "type": "bool",
+                "internalType": "bool"
+            },
+            {
+                "name": "amountIn",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "amountOut",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "swap",
+        "inputs": [
+            {
+                "name": "token0",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "token1",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "fee",
+                "type": "uint24",
+                "internalType": "uint24"
+            },
+            {
+                "name": "zeroForOne",
+                "type": "bool",
+                "internalType": "bool"
+            },
+            {
+                "name": "amountSpecified",
+                "type": "int256",
+                "internalType": "int256"
+            },
+            {
+                "name": "sqrtPriceLimitX96",
+                "type": "uint160",
+                "internalType": "uint160"
+            },
+            {
+                "name": "recipient",
+                "type": "address",
+                "internalType": "address"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "amount0",
+                "type": "int256",
+                "internalType": "int256"
+            },
+            {
+                "name": "amount1",
+                "type": "int256",
+                "internalType": "int256"
+            }
+        ],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "event",
+        "name": "PoolInitialized",
+        "inputs": [
+            {
+                "name": "token0",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
+            },
+            {
+                "name": "token1",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
+            },
+            {
+                "name": "fee",
+                "type": "uint24",
+                "indexed": false,
+                "internalType": "uint24"
+            },
+            {
+                "name": "tickSpacing",
+                "type": "int24",
+                "indexed": false,
+                "internalType": "int24"
+            },
+            {
+                "name": "sqrtPriceX96",
+                "type": "uint160",
+                "indexed": false,
+                "internalType": "uint160"
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "PositionMinted",
+        "inputs": [
+            {
+                "name": "positionId",
+                "type": "uint256",
+                "indexed": true,
+                "internalType": "uint256"
+            },
+            {
+                "name": "owner",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
+            },
+            {
+                "name": "tickLower",
+                "type": "int24",
+                "indexed": false,
+                "internalType": "int24"
+            },
+            {
+                "name": "tickUpper",
+                "type": "int24",
+                "indexed": false,
+                "internalType": "int24"
+            },
+            {
+                "name": "liquidity",
+                "type": "uint256",
+                "indexed": false,
+                "internalType": "uint256"
+            },
+            {
+                "name": "amount0",
+                "type": "uint256",
+                "indexed": false,
+                "internalType": "uint256"
+            },
+            {
+                "name": "amount1",
+                "type": "uint256",
+                "indexed": false,
+                "internalType": "uint256"
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "Swap",
+        "inputs": [
+            {
+                "name": "poolKey",
+                "type": "bytes32",
+                "indexed": true,
+                "internalType": "bytes32"
+            },
+            {
+                "name": "sender",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
+            },
+            {
+                "name": "recipient",
+                "type": "address",
+                "indexed": false,
+                "internalType": "address"
+            },
+            {
+                "name": "amount0",
+                "type": "int256",
+                "indexed": false,
+                "internalType": "int256"
+            },
+            {
+                "name": "amount1",
+                "type": "int256",
+                "indexed": false,
+                "internalType": "int256"
+            },
+            {
+                "name": "sqrtPriceX96",
+                "type": "uint160",
+                "indexed": false,
+                "internalType": "uint160"
+            },
+            {
+                "name": "tick",
+                "type": "int24",
+                "indexed": false,
+                "internalType": "int24"
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "error",
+        "name": "InsufficientLiquidity",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "InvalidSqrtPrice",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "InvalidTickRange",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "NotPositionOwner",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "PoolAlreadyInitialized",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "PoolNotInitialized",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "PriceOutOfRange",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "ReentrancyGuardReentrantCall",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "SafeERC20FailedOperation",
+        "inputs": [
+            {
+                "name": "token",
+                "type": "address",
+                "internalType": "address"
+            }
+        ]
+    },
+    {
+        "type": "error",
+        "name": "SlippageExceeded",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "ZeroLiquidity",
+        "inputs": []
+    }
 ] as const;
 
-export const EscrowVaultABI = [
-    {
-        type: "function",
-        name: "createEscrow",
-        inputs: [
-            { name: "token", type: "address" },
-            { name: "amount", type: "uint256" },
-            { name: "recipient", type: "address" },
-            { name: "settlementHash", type: "bytes32" },
-            { name: "timeout", type: "uint256" },
-        ],
-        outputs: [{ name: "escrowId", type: "uint256" }],
-        stateMutability: "nonpayable",
-    },
-    {
-        type: "function",
-        name: "release",
-        inputs: [{ name: "escrowId", type: "uint256" }],
-        outputs: [],
-        stateMutability: "nonpayable",
-    },
-    {
-        type: "function",
-        name: "refund",
-        inputs: [{ name: "escrowId", type: "uint256" }],
-        outputs: [],
-        stateMutability: "nonpayable",
-    },
-    {
-        type: "function",
-        name: "getEscrow",
-        inputs: [{ name: "escrowId", type: "uint256" }],
-        outputs: [
-            {
-                name: "",
-                type: "tuple",
-                components: [
-                    { name: "depositor", type: "address" },
-                    { name: "token", type: "address" },
-                    { name: "amount", type: "uint256" },
-                    { name: "recipient", type: "address" },
-                    { name: "expiry", type: "uint256" },
-                    { name: "settlementHash", type: "bytes32" },
-                    { name: "state", type: "uint8" },
-                ],
-            },
-        ],
-        stateMutability: "view",
-    },
-    {
-        type: "function",
-        name: "getSettlementEscrows",
-        inputs: [{ name: "settlementHash", type: "bytes32" }],
-        outputs: [{ name: "", type: "uint256[]" }],
-        stateMutability: "view",
-    },
-    {
-        type: "function",
-        name: "isEscrowClaimable",
-        inputs: [{ name: "escrowId", type: "uint256" }],
-        outputs: [{ name: "", type: "bool" }],
-        stateMutability: "view",
-    },
-    {
-        type: "function",
-        name: "isEscrowRefundable",
-        inputs: [{ name: "escrowId", type: "uint256" }],
-        outputs: [{ name: "", type: "bool" }],
-        stateMutability: "view",
-    },
-    {
-        type: "function",
-        name: "escrowCount",
-        inputs: [],
-        outputs: [{ name: "", type: "uint256" }],
-        stateMutability: "view",
-    },
-    {
-        type: "event",
-        name: "EscrowCreated",
-        inputs: [
-            { name: "escrowId", type: "uint256", indexed: true },
-            { name: "depositor", type: "address", indexed: true },
-            { name: "token", type: "address", indexed: false },
-            { name: "amount", type: "uint256", indexed: false },
-            { name: "settlementHash", type: "bytes32", indexed: false },
-            { name: "expiry", type: "uint256", indexed: false },
-        ],
-        anonymous: false,
-    },
-    {
-        type: "event",
-        name: "EscrowReleased",
-        inputs: [
-            { name: "escrowId", type: "uint256", indexed: true },
-            { name: "recipient", type: "address", indexed: true },
-            { name: "amount", type: "uint256", indexed: false },
-        ],
-        anonymous: false,
-    },
-    {
-        type: "event",
-        name: "EscrowRefunded",
-        inputs: [
-            { name: "escrowId", type: "uint256", indexed: true },
-            { name: "depositor", type: "address", indexed: true },
-            { name: "amount", type: "uint256", indexed: false },
-        ],
-        anonymous: false,
-    },
-] as const;
-
-export const CrossChainSettlementABI = [
-    {
-        type: "function",
-        name: "createSettlement",
-        inputs: [
-            {
-                name: "params",
-                type: "tuple",
-                components: [
-                    { name: "sourceChainId", type: "uint256" },
-                    { name: "sourceToken", type: "address" },
-                    { name: "sourceAmount", type: "uint256" },
-                    { name: "destChainId", type: "uint256" },
-                    { name: "destToken", type: "address" },
-                    { name: "destAmount", type: "uint256" },
-                    { name: "sourceRecipient", type: "address" },
-                    { name: "destRecipient", type: "address" },
-                    { name: "timeout", type: "uint256" },
-                ],
-            },
-        ],
-        outputs: [{ name: "settlementHash", type: "bytes32" }],
-        stateMutability: "nonpayable",
-    },
-    {
-        type: "function",
-        name: "getSettlement",
-        inputs: [{ name: "settlementHash", type: "bytes32" }],
-        outputs: [
-            {
-                name: "",
-                type: "tuple",
-                components: [
-                    { name: "settlementHash", type: "bytes32" },
-                    { name: "initiator", type: "address" },
-                    { name: "sourceChainId", type: "uint256" },
-                    { name: "sourceToken", type: "address" },
-                    { name: "sourceAmount", type: "uint256" },
-                    { name: "sourceArrived", type: "bool" },
-                    { name: "destChainId", type: "uint256" },
-                    { name: "destToken", type: "address" },
-                    { name: "destAmount", type: "uint256" },
-                    { name: "destArrived", type: "bool" },
-                    { name: "sourceRecipient", type: "address" },
-                    { name: "destRecipient", type: "address" },
-                    { name: "createdAt", type: "uint256" },
-                    { name: "expiry", type: "uint256" },
-                    { name: "state", type: "uint8" },
-                ],
-            },
-        ],
-        stateMutability: "view",
-    },
-    {
-        type: "function",
-        name: "getSettlementState",
-        inputs: [{ name: "settlementHash", type: "bytes32" }],
-        outputs: [{ name: "", type: "uint8" }],
-        stateMutability: "view",
-    },
-    {
-        type: "function",
-        name: "isSettlementComplete",
-        inputs: [{ name: "settlementHash", type: "bytes32" }],
-        outputs: [{ name: "", type: "bool" }],
-        stateMutability: "view",
-    },
-    {
-        type: "function",
-        name: "settlementCount",
-        inputs: [],
-        outputs: [{ name: "", type: "uint256" }],
-        stateMutability: "view",
-    },
-    {
-        type: "event",
-        name: "SettlementCreated",
-        inputs: [
-            { name: "settlementHash", type: "bytes32", indexed: true },
-            { name: "initiator", type: "address", indexed: true },
-            { name: "sourceChainId", type: "uint256", indexed: false },
-            { name: "destChainId", type: "uint256", indexed: false },
-            { name: "expiry", type: "uint256", indexed: false },
-        ],
-        anonymous: false,
-    },
-    {
-        type: "event",
-        name: "SettlementExecuted",
-        inputs: [
-            { name: "settlementHash", type: "bytes32", indexed: true },
-            { name: "timestamp", type: "uint256", indexed: false },
-        ],
-        anonymous: false,
-    },
-] as const;
-
-export const AquaLiquidityAccountingABI = [
-    {
-        type: "function",
-        name: "deposit",
-        inputs: [
-            { name: "app", type: "address" },
-            { name: "strategyHash", type: "bytes32" },
-            { name: "token", type: "address" },
-            { name: "amount", type: "uint256" },
-        ],
-        outputs: [],
-        stateMutability: "nonpayable",
-    },
-    {
-        type: "function",
-        name: "withdraw",
-        inputs: [
-            { name: "app", type: "address" },
-            { name: "strategyHash", type: "bytes32" },
-            { name: "token", type: "address" },
-            { name: "amount", type: "uint256" },
-        ],
-        outputs: [],
-        stateMutability: "nonpayable",
-    },
-    {
-        type: "function",
-        name: "getBalance",
-        inputs: [
-            { name: "maker", type: "address" },
-            { name: "app", type: "address" },
-            { name: "strategyHash", type: "bytes32" },
-            { name: "token", type: "address" },
-        ],
-        outputs: [
-            {
-                name: "",
-                type: "tuple",
-                components: [
-                    { name: "amount", type: "uint248" },
-                    { name: "tokensCount", type: "uint8" },
-                ],
-            },
-        ],
-        stateMutability: "view",
-    },
-    {
-        type: "function",
-        name: "getStrategy",
-        inputs: [{ name: "strategyHash", type: "bytes32" }],
-        outputs: [
-            {
-                name: "",
-                type: "tuple",
-                components: [
-                    { name: "maker", type: "address" },
-                    { name: "tokenIn", type: "address" },
-                    { name: "tokenOut", type: "address" },
-                    { name: "amountIn", type: "uint256" },
-                    { name: "amountOut", type: "uint256" },
-                    { name: "priceLower", type: "uint256" },
-                    { name: "priceUpper", type: "uint256" },
-                    { name: "expiry", type: "uint256" },
-                    { name: "salt", type: "bytes32" },
-                ],
-            },
-        ],
-        stateMutability: "view",
-    },
-    {
-        type: "function",
-        name: "isAppRegistered",
-        inputs: [{ name: "app", type: "address" }],
-        outputs: [{ name: "", type: "bool" }],
-        stateMutability: "view",
-    },
-    {
-        type: "function",
-        name: "isStrategyActive",
-        inputs: [
-            { name: "maker", type: "address" },
-            { name: "strategyHash", type: "bytes32" },
-        ],
-        outputs: [{ name: "", type: "bool" }],
-        stateMutability: "view",
-    },
-    {
-        type: "function",
-        name: "registerStrategy",
-        inputs: [
-            {
-                name: "strategy",
-                type: "tuple",
-                components: [
-                    { name: "maker", type: "address" },
-                    { name: "tokenIn", type: "address" },
-                    { name: "tokenOut", type: "address" },
-                    { name: "amountIn", type: "uint256" },
-                    { name: "amountOut", type: "uint256" },
-                    { name: "priceLower", type: "uint256" },
-                    { name: "priceUpper", type: "uint256" },
-                    { name: "expiry", type: "uint256" },
-                    { name: "salt", type: "bytes32" },
-                ],
-            },
-        ],
-        outputs: [{ name: "strategyHash", type: "bytes32" }],
-        stateMutability: "nonpayable",
-    },
-    {
-        type: "event",
-        name: "StrategyRegistered",
-        inputs: [
-            { name: "maker", type: "address", indexed: true },
-            { name: "strategyHash", type: "bytes32", indexed: true },
-        ],
-        anonymous: false,
-    },
-    {
-        type: "event",
-        name: "AppRegistered",
-        inputs: [
-            { name: "app", type: "address", indexed: true },
-            { name: "active", type: "bool", indexed: false },
-        ],
-        anonymous: false,
-    },
-] as const;
-
-// ERC20 ABI for token approvals and transfers
+// Standard ERC20 ABI
 export const ERC20ABI = [
     {
         type: "function",
@@ -815,18 +2025,18 @@ export const ERC20ABI = [
     },
     {
         type: "function",
-        name: "allowance",
-        inputs: [
-            { name: "owner", type: "address" },
-            { name: "spender", type: "address" },
-        ],
+        name: "balanceOf",
+        inputs: [{ name: "account", type: "address" }],
         outputs: [{ name: "", type: "uint256" }],
         stateMutability: "view",
     },
     {
         type: "function",
-        name: "balanceOf",
-        inputs: [{ name: "account", type: "address" }],
+        name: "allowance",
+        inputs: [
+            { name: "owner", type: "address" },
+            { name: "spender", type: "address" },
+        ],
         outputs: [{ name: "", type: "uint256" }],
         stateMutability: "view",
     },
@@ -843,60 +2053,5 @@ export const ERC20ABI = [
         inputs: [],
         outputs: [{ name: "", type: "string" }],
         stateMutability: "view",
-    },
-    {
-        type: "function",
-        name: "name",
-        inputs: [],
-        outputs: [{ name: "", type: "string" }],
-        stateMutability: "view",
-    },
-    {
-        type: "function",
-        name: "totalSupply",
-        inputs: [],
-        outputs: [{ name: "", type: "uint256" }],
-        stateMutability: "view",
-    },
-    {
-        type: "function",
-        name: "transfer",
-        inputs: [
-            { name: "to", type: "address" },
-            { name: "amount", type: "uint256" },
-        ],
-        outputs: [{ name: "", type: "bool" }],
-        stateMutability: "nonpayable",
-    },
-    {
-        type: "function",
-        name: "transferFrom",
-        inputs: [
-            { name: "from", type: "address" },
-            { name: "to", type: "address" },
-            { name: "amount", type: "uint256" },
-        ],
-        outputs: [{ name: "", type: "bool" }],
-        stateMutability: "nonpayable",
-    },
-    {
-        type: "event",
-        name: "Approval",
-        inputs: [
-            { name: "owner", type: "address", indexed: true },
-            { name: "spender", type: "address", indexed: true },
-            { name: "value", type: "uint256", indexed: false },
-        ],
-        anonymous: false,
-    },
-    {
-        type: "event",
-        name: "Transfer",
-        inputs: [
-            { name: "from", type: "address", indexed: true },
-            { name: "to", type: "address", indexed: true },
-            { name: "value", type: "uint256", indexed: false },
-        ],
-        anonymous: false,
     },
 ] as const;

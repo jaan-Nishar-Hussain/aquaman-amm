@@ -8,7 +8,6 @@ const navItems = [
     { href: "/", label: "Dashboard" },
     { href: "/swap", label: "Swap" },
     { href: "/liquidity", label: "Liquidity" },
-    { href: "/intents", label: "Intents" },
 ];
 
 export default function Navigation() {
